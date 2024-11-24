@@ -2,8 +2,6 @@ import { FormValues } from "@/interfaces/form-values";
 import { SkyObject } from "@/interfaces/sky-object";
 import { formatCoordinates } from "@/lib/coordinate-utils";
 
-
-
 export const fetchSkyObjects = async (
 	values: FormValues
 ): Promise<SkyObject[]> => {
