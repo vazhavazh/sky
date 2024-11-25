@@ -80,12 +80,15 @@ ChartProps) => {
 			<div
 				ref={scrollContainerRef}
 				// onScroll={handleScroll}
-				className='overflow-x-scroll whitespace-normal pt-4'>
+				className='overflow-x-scroll overflow-y-hidden whitespace-normal pt-4 h-[100vh]'>
 				<div
+				className="rounded-lg"
 					style={{
+						
 						background: chartBackground,
 						width: chartWidth,
-					}}>
+					}}
+					>
 					<ResponsiveContainer
 						width='100%'
 						height={900}>
