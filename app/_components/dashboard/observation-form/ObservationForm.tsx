@@ -1,4 +1,12 @@
-"use client";
+"use client"
+import { TextField } from "@mui/material";
+
+
+
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";;
+
 
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Button } from "@/components/ui/button";
@@ -37,7 +45,7 @@ export const ObservationForm = ({
 								component='div'
 							/>
 						</label>
-						<label htmlFor='time'>
+						{/* <label htmlFor='time'>
 							<Field
 								className='w-full border hidden'
 								name='time'
@@ -53,7 +61,20 @@ export const ObservationForm = ({
 								name='time'
 								component='div'
 							/>
-						</label>
+						</label> */}
+						 <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <div>
+        <TimePicker
+          label="Select time"
+          value={selectedTime}
+          onChange={handleChange}
+          renderInput={(params) => <TextField {...params} />}
+        />
+        <div>
+          {selectedTime ? `Selected Time: ${selectedTime.toLocaleTimeString()}` : "No time selected"}
+        </div>
+      </div>
+    </LocalizationProvider>
 						<Field
 							className='w-full border '
 							name='latitude'
