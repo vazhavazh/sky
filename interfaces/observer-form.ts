@@ -3,10 +3,10 @@ import { FormValues } from "./form-values";
 export interface ObservationFormProps {
 	formValues: FormValues;
 
-	startTimelapse: () => void;
+	startTimelapseAction: () => void;
 
-	stopTimelapse: () => void;
+	stopTimelapseAction: () => void;
 
-	submitHandler: (values: FormValues) => Promise<void>;
-
+	submitHandlerAction: (values: FormValues) => Promise<void>;
+	handleChange: (field: string, value: string) => void;
 }

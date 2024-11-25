@@ -1,3 +1,5 @@
+"use client";
+
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Button } from "@/components/ui/button";
 import { ObservationFormProps } from "@/interfaces/observer-form";
@@ -6,18 +8,18 @@ import { validationSchema } from "@/schema/observation-form-schema";
 
 export const ObservationForm = ({
 	formValues,
-	startTimelapse,
-	stopTimelapse,
-	submitHandler,
-	
+	startTimelapseAction,
+	stopTimelapseAction,
+	submitHandlerAction,
+	// handleChange,
 }: ObservationFormProps) => {
 	return (
 		<>
 			<Formik
 				initialValues={formValues}
 				validationSchema={validationSchema}
-				onSubmit={submitHandler}>
-				{({}) => (
+				onSubmit={submitHandlerAction}>
+				{({ setFieldValue }) => (
 					<Form className='flex flex-col gap-2'>
 						<label htmlFor='date'>
 							<Field
@@ -26,10 +28,10 @@ export const ObservationForm = ({
 								type='date'
 							/>
 							<DatePickerComponent
-								
+								setFieldValueAction={setFieldValue}
 								date={formValues.date}
 							/>
-							{/* <DatePickerComponent /> */}
+
 							<ErrorMessage
 								name='date'
 								component='div'
@@ -37,7 +39,7 @@ export const ObservationForm = ({
 						</label>
 						<label htmlFor='time'>
 							<Field
-								className='w-full border '
+								className='w-full border hidden'
 								name='time'
 								type='time'
 								// onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +47,8 @@ export const ObservationForm = ({
 								// }}
 								// value={currentTime}
 							/>
+
+							
 							<ErrorMessage
 								name='time'
 								component='div'
@@ -69,12 +73,12 @@ export const ObservationForm = ({
 						<Button type='submit'>FETCH</Button>
 						<Button
 							type='button'
-							onClick={startTimelapse}>
+							onClick={startTimelapseAction}>
 							Start Timelapse
 						</Button>
 						<Button
 							type='button'
-							onClick={stopTimelapse}>
+							onClick={stopTimelapseAction}>
 							Stop Timelapse
 						</Button>
 					</Form>

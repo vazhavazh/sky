@@ -12,10 +12,20 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { DatePickerComponentProps } from "@/interfaces/datepicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const DatePickerComponent = ({ date }: DatePickerComponentProps) => {
-	const [localDate, setLocalDate] = useState<Date>(new Date(date));
+export const DatePickerComponent = ({
+	date,
+	setFieldValueAction,
+}: DatePickerComponentProps) => {
+	const [localDate, setLocalDate] = useState<Date | undefined>(new Date(date));
+
+	useEffect(() => {
+		if (localDate) {
+			const formattedDate = format(localDate, "yyyy-MM-dd");
+			setFieldValueAction("date", formattedDate);
+		}
+	}, [localDate, setFieldValueAction]);
 
 	return (
 		<Popover>
@@ -24,18 +34,17 @@ export const DatePickerComponent = ({ date }: DatePickerComponentProps) => {
 					variant={"outline"}
 					className={cn(
 						"w-[280px] justify-start text-left font-normal",
-						!date && "text-muted-foreground"
+						!localDate && "text-muted-foreground"
 					)}>
 					<CalendarIcon />
-					{date ? format(date, "PPP") : <span>Pick a date</span>}
+					{localDate ? format(localDate, "PPP") : <span>Pick a date</span>}
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className='w-auto p-0'>
 				<Calendar
 					mode='single'
 					selected={localDate}
-					// onSelect={setDate}
-					initialFocus
+					onSelect={setLocalDate}
 				/>
 			</PopoverContent>
 		</Popover>

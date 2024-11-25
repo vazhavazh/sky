@@ -54,6 +54,8 @@ const Dashboard = () => {
 		clear();
 	};
 
+	
+
 	const timelapseHandler = async () => {
 		if (counter >= 24) {
 			setCounter(0);
@@ -98,7 +100,12 @@ const Dashboard = () => {
 		}
 	};
 
-	
+	 const handleChange = (field: string, value: string) => {
+			setFormValues((prevValues) => ({
+				...prevValues,
+				[field]: value,
+			}));
+		};
 
 	// const handleScroll = () => {
 	// 	const container = scrollContainerRef.current;
@@ -145,10 +152,10 @@ const Dashboard = () => {
 		<>
 			<ObservationForm
 				formValues={formValues}
-				startTimelapse={startTimelapse}
-				stopTimelapse={stopTimelapse}
-				submitHandler={submitHandler}
-				
+				startTimelapseAction={startTimelapse}
+				stopTimelapseAction={stopTimelapse}
+				submitHandlerAction={submitHandler}
+				handleChange={handleChange}
 			/>
 			<Chart
 				// handleScroll={handleScroll}
