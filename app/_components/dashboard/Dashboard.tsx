@@ -107,23 +107,23 @@ const Dashboard = () => {
 			}));
 		};
 
-	// const handleScroll = () => {
-	// 	const container = scrollContainerRef.current;
-	// 	if (!container) return;
+	const handleScroll = () => {
+		const container = scrollContainerRef.current;
+		if (!container) return;
 
-	// 	const maxScrollLeft = container.scrollWidth - container.clientWidth;
-	// 	const tolerance = 10; 
-	// 	if (container.scrollLeft >= maxScrollLeft - 1) {
+		const maxScrollLeft = container.scrollWidth - container.clientWidth;
+		const tolerance = 10; 
+		if (container.scrollLeft >= maxScrollLeft - 1) {
 			
-	// 		container.scrollLeft = 1; 
-	// 		return;
-	// 	}
+			container.scrollLeft = 1; 
+			return;
+		}
 	
-	// 	if (container.scrollLeft <= tolerance) {
+		if (container.scrollLeft <= tolerance) {
 			
-	// 		container.scrollLeft = maxScrollLeft - tolerance; 
-	// 	}
-	// };
+			container.scrollLeft = maxScrollLeft - tolerance; 
+		}
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -157,7 +157,7 @@ const Dashboard = () => {
 				handleChange={handleChange}
 			/>
 			<Chart
-				// handleScrollAction={handleScroll}
+				handleScrollAction={handleScroll}
 				isTimeLapseWorking={isTimeLapseWorking}
 				animationDuration={INTERVAL_BETWEEN_REQUESTS}
 				scrollContainerRef={scrollContainerRef}
