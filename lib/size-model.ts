@@ -35,7 +35,7 @@ export const addSizesAndModels = (array: SkyObject[], starData: StarData) => {
 		if (hasModel && obj.name === "Sun") {
 			return {
 				...obj,
-				magnitude: size * 3.5,
+				magnitude: size * 1.8,
 				image,
 			};
 		}
@@ -43,13 +43,13 @@ export const addSizesAndModels = (array: SkyObject[], starData: StarData) => {
 		if (!isBrightStar && hasModel) {
 			return {
 				...obj,
-				magnitude: size * 1.2,
+				magnitude: size * 1.0,
 				image,
 			};
 		}
 		return {
 			...obj,
-			magnitude: size / 1.5,
+			magnitude: size / 2,
 			image,
 		};
 	});

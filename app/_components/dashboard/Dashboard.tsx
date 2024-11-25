@@ -7,32 +7,17 @@ import { useAstronomyData } from "@/hooks/useAstronomyData";
 import { useInterval } from "@/hooks/useInterval";
 import { ObservationForm } from "./observation-form/ObservationForm";
 import { Chart } from "./chart/Chart";
+import { incrementTimeByHour } from "@/lib/increment-time";
 
-const INITIAL_FORM_VALUES: FormValues = {
-	date: "2024-10-09",
-	time: "09:00:00",
-	latitude: "29.28.4",
-	longitude: "004.30.5",
-};
+// const INITIAL_FORM_VALUES: FormValues = {
+// 	date: "2024-10-09",
+// 	time: "09:00:00",
+// 	latitude: "29.28.4",
+// 	longitude: "004.30.5",
+// };
 
-const CHART_WIDTH = 2000;
+const CHART_WIDTH = 3000;
 const INTERVAL_BETWEEN_REQUESTS = 3000;
-
-const incrementTimeByHour = (values: FormValues): FormValues => {
-	const { date, time, latitude, longitude } = values;
-	const [year, month, day] = date.split("-").map(Number);
-	const [hour, minute, second] = time.split(":").map(Number);
-	const currentDate = new Date(year, month - 1, day, hour, minute, second);
-	currentDate.setHours(currentDate.getHours() + 1);
-	const newDate = currentDate.toISOString().split("T")[0]; // Получаем дату в формате "YYYY-MM-DD"
-	const newTime = currentDate.toTimeString().split(" ")[0]; // Получаем время в формате "HH:mm:ss"
-	return {
-		date: newDate,
-		time: newTime,
-		latitude,
-		longitude,
-	};
-};
 
 const Dashboard = () => {
 	const [isClient, setIsClient] = useState(false);
@@ -40,11 +25,17 @@ const Dashboard = () => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentFormValues, setCurrentFormValues] = useState<FormValues>();
+	const [formValues, setFormValues] = useState<FormValues>({
+		date: "2024-10-09",
+		time: "09:00:00",
+		latitude: "29.28.4",
+		longitude: "004.30.5",
+	});
 	const [counter, setCounter] = useState(0);
 	const { fetchAstronomyData } = useAstronomyData();
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
 	const callbackRef = useRef<(() => void) | null>(null);
-	const [masterTime, setMasterTime] = useState(""); // Управление временем
+	const [masterTime, setMasterTime] = useState("");
 	const [longitude, setLongitude] = useState("");
 	const { startInterval, clear } = useInterval(
 		callbackRef,
@@ -73,7 +64,7 @@ const Dashboard = () => {
 
 		const updatedValues = currentFormValues
 			? incrementTimeByHour(currentFormValues)
-			: incrementTimeByHour(INITIAL_FORM_VALUES);
+			: incrementTimeByHour(formValues);
 
 		const currentTime = updatedValues.time;
 		setMasterTime(currentTime);
@@ -107,6 +98,8 @@ const Dashboard = () => {
 		}
 	};
 
+	
+
 	// const handleScroll = () => {
 	// 	const container = scrollContainerRef.current;
 	// 	if (!container) return;
@@ -132,9 +125,9 @@ const Dashboard = () => {
 			setIsClient(true);
 			try {
 				// !
-				setLongitude(INITIAL_FORM_VALUES.longitude);
-				setMasterTime(INITIAL_FORM_VALUES.time);
-				const data = await fetchAstronomyData(INITIAL_FORM_VALUES);
+				setLongitude(formValues.longitude);
+				setMasterTime(formValues.time);
+				const data = await fetchAstronomyData(formValues);
 				// const updatedDataWithSizes = addSizeOfStars(data, starData.sizes);
 				setChartData(data);
 
@@ -151,10 +144,11 @@ const Dashboard = () => {
 	return (
 		<>
 			<ObservationForm
-				initialValues={INITIAL_FORM_VALUES}
+				formValues={formValues}
 				startTimelapse={startTimelapse}
 				stopTimelapse={stopTimelapse}
 				submitHandler={submitHandler}
+				
 			/>
 			<Chart
 				// handleScroll={handleScroll}

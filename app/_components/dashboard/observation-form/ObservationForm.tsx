@@ -1,57 +1,55 @@
-import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-
 import { Button } from "@/components/ui/button";
 import { ObservationFormProps } from "@/interfaces/observer-form";
+import { DatePickerComponent } from "./date-picker/DatePicker";
+import { validationSchema } from "@/schema/observation-form-schema";
 
-const validationSchema = Yup.object({
-	date: Yup.string().required("Date is required"),
-	time: Yup.string().required("Time is required"),
-	latitude: Yup.string()
-		.matches(/^\d+\.\d{1,2}\.\d{1}$/, "Invalid latitude format")
-		.required("Latitude is required"),
-	longitude: Yup.string()
-		.matches(/^\d+\.\d{1,2}\.\d{1}$/, "Invalid longitude format")
-		.required("Longitude is required"),
-});
 export const ObservationForm = ({
-	initialValues,
+	formValues,
 	startTimelapse,
 	stopTimelapse,
 	submitHandler,
-	// setCurrentTime,
-	// currentTime,
+	
 }: ObservationFormProps) => {
 	return (
 		<>
 			<Formik
-				initialValues={initialValues}
+				initialValues={formValues}
 				validationSchema={validationSchema}
 				onSubmit={submitHandler}>
 				{({}) => (
 					<Form className='flex flex-col gap-2'>
-						<Field
-							className='w-full border '
-							name='date'
-							type='date'
-						/>
-						<ErrorMessage
-							name='date'
-							component='div'
-						/>
-						<Field
-							className='w-full border '
-							name='time'
-							type='time'
-							// onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-							// 	setCurrentTime(e.target.value); // Обновляем время в Dashboard
-							// }}
-							// value={currentTime}
-						/>
-						<ErrorMessage
-							name='time'
-							component='div'
-						/>
+						<label htmlFor='date'>
+							<Field
+								className='w-full border hidden'
+								name='date'
+								type='date'
+							/>
+							<DatePickerComponent
+								
+								date={formValues.date}
+							/>
+							{/* <DatePickerComponent /> */}
+							<ErrorMessage
+								name='date'
+								component='div'
+							/>
+						</label>
+						<label htmlFor='time'>
+							<Field
+								className='w-full border '
+								name='time'
+								type='time'
+								// onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+								// 	setCurrentTime(e.target.value); // Обновляем время в Dashboard
+								// }}
+								// value={currentTime}
+							/>
+							<ErrorMessage
+								name='time'
+								component='div'
+							/>
+						</label>
 						<Field
 							className='w-full border '
 							name='latitude'
