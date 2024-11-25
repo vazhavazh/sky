@@ -1,12 +1,4 @@
 "use client"
-import { TextField } from "@mui/material";
-
-
-
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";;
-
 
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Button } from "@/components/ui/button";
@@ -62,7 +54,7 @@ export const ObservationForm = ({
 								component='div'
 							/>
 						</label> */}
-						 <LocalizationProvider dateAdapter={AdapterDateFns}>
+						 {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
       <div>
         <TimePicker
           label="Select time"
@@ -74,7 +66,7 @@ export const ObservationForm = ({
           {selectedTime ? `Selected Time: ${selectedTime.toLocaleTimeString()}` : "No time selected"}
         </div>
       </div>
-    </LocalizationProvider>
+    </LocalizationProvider> */}
 						<Field
 							className='w-full border '
 							name='latitude'
