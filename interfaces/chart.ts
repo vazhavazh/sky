@@ -6,7 +6,7 @@ export interface ChartProps {
 	chartWidth: number;
 	chartData: SkyObject[];
 	isTimeLapseWorking: boolean;
-	// handleScroll: () => void;
+	handleScrollAction?: () => void;
 	masterTime: string;
 	longitude: string;
 	// currentTimeValue: number;

@@ -69,4 +69,14 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+   .wave-background {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 370px;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: url(../public/wave.svg) repeat-x 0 100% / 20% 100% transparent;
+  }
 }

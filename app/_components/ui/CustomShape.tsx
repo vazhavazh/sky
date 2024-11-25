@@ -18,7 +18,7 @@ export const CustomShape = ({ cx = 0, cy = 0, payload }: CustomShapeProps) => {
 	if (payload) {
 		const { image, magnitude, name } = payload;
 		if (image) {
-			// Если есть изображение, отрисовываем его
+			
 			return (
 				<g>
 					<foreignObject
@@ -29,7 +29,7 @@ export const CustomShape = ({ cx = 0, cy = 0, payload }: CustomShapeProps) => {
 						<Image
 							src={image}
 							alt={name || "object"}
-							priority="primary"
+							priority
 							width={magnitude}
 							height={magnitude}
 						/>

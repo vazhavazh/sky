@@ -112,17 +112,16 @@ const Dashboard = () => {
 	// 	if (!container) return;
 
 	// 	const maxScrollLeft = container.scrollWidth - container.clientWidth;
-	// 	const tolerance = 10; // Разрешение на мелкие погрешности
+	// 	const tolerance = 10; 
 	// 	if (container.scrollLeft >= maxScrollLeft - 1) {
-	// 		// console.log("ДОШЁЛ ДО КОНЦА");
-	// 		container.scrollLeft = 1; // Устанавливаем чуть дальше начала для плавности
+			
+	// 		container.scrollLeft = 1; 
 	// 		return;
 	// 	}
-	// 	// Проверяем достижение начала и перемещаем в конец
+	
 	// 	if (container.scrollLeft <= tolerance) {
-	// 		// console.log("ДОШЁЛ ДО НАЧАЛА");
-	// 		container.scrollLeft = maxScrollLeft - tolerance; // Устанавливаем чуть ближе к концу для плавности
-	// 		return;
+			
+	// 		container.scrollLeft = maxScrollLeft - tolerance; 
 	// 	}
 	// };
 
@@ -158,7 +157,7 @@ const Dashboard = () => {
 				handleChange={handleChange}
 			/>
 			<Chart
-				// handleScroll={handleScroll}
+				// handleScrollAction={handleScroll}
 				isTimeLapseWorking={isTimeLapseWorking}
 				animationDuration={INTERVAL_BETWEEN_REQUESTS}
 				scrollContainerRef={scrollContainerRef}

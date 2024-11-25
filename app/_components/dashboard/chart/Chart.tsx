@@ -20,17 +20,17 @@ import { CustomShape } from "@/app/_components/ui/CustomShape";
 import { CustomTooltip } from "@/app/_components/ui/CustomTooltip";
 import { interpolate } from "@/lib/animation-utils";
 import { getGradientBackground } from "@/lib/utils";
-
+// import { Wave } from "../../ui/Wave";
 
 export const Chart = ({
+	handleScrollAction,
 	scrollContainerRef,
 	animationDuration,
 	chartWidth,
 	chartData,
 	isTimeLapseWorking,
 	masterTime,
-}: // handleScroll,
-ChartProps) => {
+}: ChartProps) => {
 	const [interpolatedData, setInterpolatedData] = useState<SkyObject[]>([]);
 	const [chartBackground, setChartBackground] = useState("");
 	useEffect(() => {
@@ -76,64 +76,70 @@ ChartProps) => {
 	}, [chartData, isTimeLapseWorking]);
 
 	return (
-		<div className='px-8'>
-			<div
-				ref={scrollContainerRef}
-				// onScroll={handleScroll}
-				className='overflow-x-scroll overflow-y-hidden whitespace-normal pt-4 h-[100vh]'>
+		<>
+			<div className='px-8 relative'>
+				<div className='absolute bottom-0 left-0 w-full h-[240px] z-[100] wave-background'></div>
 				<div
-				className="rounded-lg"
-					style={{
-						
-						background: chartBackground,
-						width: chartWidth,
-					}}
-					>
-					<ResponsiveContainer
-						width='100%'
-						height={900}>
-						<ScatterChart>
-							<CartesianGrid strokeDasharray='3 3' />
-							<XAxis
-								orientation='top'
-								type='number'
-								dataKey='azimuth'
-								name='Azimuth'
-								unit='°'
-								domain={[0, 360]}
-								ticks={[...Array(25).keys()].map((x) => x * 15)}
-							/>
-							<YAxis
-								type='number'
-								dataKey='altitude'
-								name='Altitude'
-								unit='°'
-								domain={[-90, 90]}
-								ticks={[
-									-90, -75, -60, -45, -30, -15, 0, 15, 30, 45, 60, 75, 90,
-								]}
-								interval={0}
-								allowDataOverflow={true}
-							/>
+					ref={scrollContainerRef}
+					onScroll={handleScrollAction}
+					className='overflow-x-scroll h-[100vh] overflow-y-hidden  whitespace-normal pt-4 
+					 '>
+					
 
-							{!isTimeLapseWorking && <Tooltip content={<CustomTooltip />} />}
-							<Scatter
-								isAnimationActive={false}
-								data={addSizesAndModels(interpolatedData, starData)}
-								fill='yellow'
-								// eslint-disable-next-line
-								shape={(props: any) => {
-									return <CustomShape {...props} />;
-								}}>
-								<LabelList
-									dataKey='name'
-									position='top'
+					<div
+						className='rounded-lg'
+						style={{
+							background: chartBackground,
+							width: chartWidth,
+						}}>
+						<ResponsiveContainer
+							width='100%'
+							height={900}>
+							<ScatterChart>
+								<CartesianGrid strokeDasharray='3 3' />
+								<XAxis
+									orientation='top'
+									type='number'
+									dataKey='azimuth'
+									name='Azimuth'
+									unit='°'
+									domain={[0, 360]}
+									ticks={[...Array(25).keys()].map((x) => x * 15)}
 								/>
-							</Scatter>
-						</ScatterChart>
-					</ResponsiveContainer>
+								<YAxis
+									type='number'
+									dataKey='altitude'
+									name='Altitude'
+									unit='°'
+									domain={[-90, 90]}
+									ticks={[
+										-90, -75, -60, -45, -30, -15, 0, 15, 30, 45, 60, 75, 90,
+									]}
+									interval={0}
+									allowDataOverflow={true}
+								/>
+								<div className='h-[100vh] relative '>
+									
+								</div>
+								{!isTimeLapseWorking && <Tooltip content={<CustomTooltip />} />}
+								<Scatter
+									isAnimationActive={false}
+									data={addSizesAndModels(interpolatedData, starData)}
+									fill='yellow'
+									// eslint-disable-next-line
+									shape={(props: any) => {
+										return <CustomShape {...props} />;
+									}}>
+									<LabelList
+										dataKey='name'
+										position='top'
+									/>
+								</Scatter>
+							</ScatterChart>
+						</ResponsiveContainer>
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
