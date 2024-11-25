@@ -20,7 +20,7 @@ import { CustomShape } from "@/app/_components/ui/CustomShape";
 import { CustomTooltip } from "@/app/_components/ui/CustomTooltip";
 import { interpolate } from "@/lib/animation-utils";
 import { getGradientBackground } from "@/lib/utils";
-// import { Wave } from "../../ui/Wave";
+
 
 export const Chart = ({
 	handleScrollAction,
