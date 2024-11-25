@@ -6,6 +6,8 @@ import { ObservationFormProps } from "@/interfaces/observer-form";
 import { DatePickerComponent } from "./date-picker/DatePicker";
 import { validationSchema } from "@/schema/observation-form-schema";
 
+
+
 export const ObservationForm = ({
 	formValues,
 	startTimelapseAction,
